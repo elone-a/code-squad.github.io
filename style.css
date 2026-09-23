@@ -26,3 +26,9 @@ a:focus, button:focus, input:focus, textarea:focus {
   outline: 3px solid #a9691f;
   outline-offset: 2px;
 }
+header { background: #14181c; color: #ffffff; padding: 15px 0; }
+.header-inner { display: flex; align-items: center; justify-content: space-between; }
+.logo { color: #ffffff; font-size: 20px; font-weight: bold; text-decoration: none; }
+nav ul { display: flex; gap: 25px; }
+nav a { color: #ffffff; text-decoration: none; }
+nav a:hover { color: #e4b366; }
