@@ -6,34 +6,59 @@
     <title>Elone A. | Portfolio</title>
     <meta name="description" content="Portfolio of a marketing, web development, and cloud specialist — projects, skills, and contact information." />
     <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
 </head>
 
 <body>
-    <header>
-        <div class="container header-inner">
-        <a href="#top" class="logo">Elone A.</a>
- 
-         <!-- This button only shows on small screens -->
-        <button id="menu-button" aria-expanded="false" aria-controls="nav-menu">Menu</button>
- 
-      <nav id="nav-menu" aria-label="Main">
-        <!-- Top Navigation Links -->
-        <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#work">Work</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
+  <header>
+    <nav>
+      <h2 class="logo">Elone</h2>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#places">Places</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
   </header>
 
-    <h1>Hello, I'm Elone A</h1>
+  <section id="home" class="hero">
+    <h1>Hello, I’m <span>Elone</span></h1>
+    <p>Aspiring Full-Stack Developer | HTML • CSS • JS • React</p>
+  </section>
 
-    <p>Welcome to my portfolio website.</p>
-
+  <section id="about">
     <h2>About Me</h2>
-    <p>I am learning web development with CodeSquad.</p>
+    <p></p>
+  </section>
 
+   <section id="places">
+    
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="project-card">Portfolio Website</div>
+    <div class="project-card">To-Do App</div>
+    <div class="project-card">Coming Soon...</div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <form onsubmit="return validateForm()">
+      <input type="text" id="name" placeholder="Your Name">
+      <input type="email" id="email" placeholder="Your Email">
+      <textarea id="message" placeholder="Your Message"></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2026 Elone | Built with ❤️ using HTML, CSS, JS</p>
+  </footer>
+
+ 
 </body>
+</html>
 </html>
