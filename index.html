@@ -3,62 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elone A. | Portfolio</title>
+    <title>Elone Alemayehu | Portfolio</title>
+
+    <!-- Meta description: summarizes the page for search engines and social sharing -->
     <meta name="description" content="Portfolio of a marketing, web development, and cloud specialist — projects, skills, and contact information." />
+
+    <!-- External stylesheet: all visual styling lives here -->
     <link rel="stylesheet" href="style.css" />
-    <script src="script.js"></script>
+
+   
 </head>
 
 <body>
-  <header>
-    <nav>
-      <h2 class="logo">Elone</h2>
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#places">Places</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
 
-  <section id="home" class="hero">
-    <h1>Hello, I’m <span>Elone</span></h1>
-    <p>Aspiring Full-Stack Developer | HTML • CSS • JS • React</p>
-  </section>
+    <!-- ================= HEADER / NAVIGATION ================= -->
+    <header>
+        <nav aria-label="Main navigation">
+            <!-- Logo doubles as a "back to top" link -->
+            <img src="assets/ea-logo-120.webp" class="logo" alt="Elone Alemayehu logo" />
 
-  <section id="about">
-    <h2>About Me</h2>
-    <p></p>
-  </section>
+            <!-- Hamburger button: only visible on mobile (styled in CSS).
+                 'aria-expanded' tells screen readers whether the menu is open;
+                 the JS toggles it when the menu opens/closes. -->
+            <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+                <span class="hamburger"></span>
+            </button>
 
-   <section id="places">
-    
-  </section>
+            <!-- Navigation links -->
+            <ul id="nav-menu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#places" class="nav-link">Places</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="project-card">Portfolio Website</div>
-    <div class="project-card">To-Do App</div>
-    <div class="project-card">Coming Soon...</div>
-  </section>
+    <!-- ================= HERO / HOME ================= -->
+    <!-- <main> is the landmark wrapper for the page's primary content -->
+    <main>
+        <section id="home" class="hero">
+            <!-- aria-label gives screen readers meaningful context for the section -->
+            <h1>Hello, I’m <span>Elone</span></h1>
+            <p>Aspiring Full-Stack Developer  |  Fairfax, Virginia</p>
 
-  <section id="contact">
-    <h2>Contact Me</h2>
-    <form onsubmit="return validateForm()">
-      <input type="text" id="name" placeholder="Your Name">
-      <input type="email" id="email" placeholder="Your Email">
-      <textarea id="message" placeholder="Your Message"></textarea>
-      <button type="submit">Send</button>
-    </form>
-  </section>
+            <!-- Call-to-action buttons: guide visitors to the two most
+                 important actions on the page -->
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">View My Projects</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
 
-  <footer>
-    <p>© 2026 Elone | Built with ❤️ using HTML, CSS, JS</p>
-  </footer>
+        </section>
 
- 
+        <!-- ================= ABOUT ================= -->
+        <section id="about" aria-label="About me">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <img src= "assets/profile.webp"  class="profile-img" alt="sketch of Elone" />
+                <div class="about-text">
+                    <p>I'm an aspiring full-stack developer with a background that blends digital, programmatic advertising and cloud computing. I got my start in programmatic advertising, which taught me to think about the end user first. That curiosity led me into cloud computing, where I passed the AWS Solutions Architect Associate certification. Now I'm looking to build on that foundation with hands-on, structured training that can help me turn that instinct and cloud knowledge into real full-stack development skills.</p>
+
+                    <!-- Future list  -->
+                    <h3>Future Tech Roles</h3>
+                    <ul class="future-list">
+                        <li>Cloud Solutions Architect / Cloud Engineer</li>
+                        <li>Front-End Developer</li>
+                        <li>Agent Operator</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PROJECTS ================= -->
+        <section id="projects" aria-label="My projects">
+            <h2>Projects</h2>
+            <div class="projects-grid">
+                <!-- Each card is an <article>: a self-contained piece of
+                     content that makes sense on its own -->
+                <article class="project-card">
+                    <img src= "assets/css.webp"  class="profile-img" alt="CSS Fundamentals" />
+                    <div class="project-content">
+                        <h3>CSS Fundamentals | Completed</h3>
+                            <p>Built foundational CSS skills through freeCodeCamp's hands-on curriculum, covering specificity, the cascade, backgrounds, borders, and styling text and links — reinforced through practical labs and projects.</p>
+                    </div>
+                
+                </article>
+
+                <article class="project-card">
+                    <img src= "assets/html-forms.webp"  class="profile-img" alt="HTML Forms" />
+                    <div class="project-content">
+                        <h3>HTML Forms & Tables | Completed</h3>
+                        <p>Learned to build accessible HTML forms and tables through freeCodeCamp's hands-on curriculum, covering form labels, inputs, buttons, and client-side validation, along with proper table structure and use cases. Applied these skills through hands-on projects including a hotel feedback form, a final exams table, and a book catalog table.</p>
+                    </div>
+                </article>
+
+                 <article class="project-card">
+                    <img src= "assets/js-functions.webp"  class="profile-img" alt="JavaScript Functions" />
+                    <div class="project-content">
+                        <h3>JavaScript Functions | Completed</h3>
+                        <p>Learned to write and structure JavaScript functions through freeCodeCamp's hands-on curriculum, covering function fundamentals and practical applications. Applied these skills through hands-on projects including a calculator, a boolean check function, an email masker, a loan qualification checker, a Celsius-to-Fahrenheit converter, a card counting assistant, a leap year calculator, a string truncation algorithm, and a confirm-the-ending tool.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- ================= PLACES ================= -->
+        <section id="places" aria-label="Places I've been">
+            <h2>Places</h2>
+            <p class="section-intro">Places I'd Chase the Horizon For.</p>
+            <div class="places-grid">
+                <figure class="place-card">
+                    <img src="assets/Socotra.webp" alt="An exotic tree in Socotra, Yemen" />
+                    <figcaption>Socotra, Yemen</figcaption>
+                </figure>
+                <figure class="place-card">
+                    <img src="assets/Danakil.webp" alt="Acid Springs and salt deposit at Dallol" />
+                    <figcaption>Danakil Depression, Ethiopia</figcaption>
+                </figure>
+                <figure class="place-card">
+                    <img src="assets/Zhangye.webp" alt="A colorful geological formation in Zhangye" />
+                    <figcaption>Zhangye Danxia, China</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- ================= CONTACT ================= -->
+        <section id="contact" aria-label="Contact me">
+            <h2>Contact Me</h2>
+
+            <!-- Contact form -->
+            <form action = "mailto:ealemayehu55+port@gmail.com" method="post" enctype="text/plain">
+                <!-- Each field is wrapped in a <div> so CSS/JS can target,
+                     style, and show error messages per field -->
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your Name" required />
+                    <small class="error-message" id="name-error"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" placeholder="Your Email" required />
+                    <small class="error-message" id="email-error"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Your Message</label>
+                    <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                    <small class="error-message" id="message-error"></small>
+                </div>
+                <button type="submit" class="btn btn-primary">Send</button>
+            </form>
+
+        </section>
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+        <div class="social-links">
+            <a href="https://github.com/yourusername" target="_blank"" aria-label="GitHub profile">GitHub</a>
+            <a href="https://linkedin.com/in/yourusername" target="_blank" aria-label="LinkedIn profile">LinkedIn</a>
+        </div>
+        <p>&copy; 2026 Elone | Built with ❤️ using HTML, CSS, JS</p>
+
+    </footer>
 </body>
-</html>
 </html>

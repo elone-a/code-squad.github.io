@@ -1,104 +1,483 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* ---------- 1. Global variables---------- */
+:root {
+    --color-bg: #ffffff;            /* page background */
+    --color-surface: #f5f7fa;       /* subtle background for alternating sections */
+    --color-text: #1a1a2e;          /* main text color */
+    --color-text-muted: #555a6e;    /* secondary text */
+    --color-primary: #4f6df5;       /* brand / accent color */
+    --color-primary-dark: #3a56d4;  /* hover state of the accent */
+    --color-border: #e2e6f0;        /* light borders & input outlines */
+    --color-error: #d64545;         /* form error messages */
+    --color-success: #2e9e6b;       /* form success messages */
+
+    --font-main: "Segoe UI", system-ui, -apple-system, sans-serif;
+    --radius: 12px;                 /* consistent rounded corners */
+    --shadow: 0 4px 20px rgba(26, 26, 46, 0.08);   /* card shadow */
+    --shadow-hover: 0 8px 30px rgba(26, 26, 46, 0.15);
+    --nav-height: 70px;             /* fixed header height */
+    --transition: 0.25s ease;       /* consistent animation speed */
 }
+
+/* Minimal reset: remove default browser spacing and fix box sizing.
+   'border-box' makes width/height include padding & border —
+   this is what makes layout math predictable. */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ---------- 2. Base typography ---------- */
 
 body {
-  font-family: 'Segoe UI', sans-serif;
-  line-height: 1.6;
-  background: #f9f9f9;
-  color: #333;
-  transition: background 0.3s, color 0.3s;
+    font-family: var(--font-main);
+    color: var(--color-text);
+    background: var(--color-bg);
+    line-height: 1.6;
 }
 
-header {
-  background: #222;
-  color: #fff;
-  padding: 15px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* Headings get a slightly tighter line-height for a polished look */
+h1, h2, h3 {
+    line-height: 1.2;
 }
 
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-}
-
-nav a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.hero {
-  height: 80vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.hero h1 span {
-  color: #007BFF;
-}
-
+/* Give sections a consistent, comfortable width and center them.
+   'max-width' keeps content readable on huge monitors. */
 section {
-  padding: 50px 20px;
-  max-width: 900px;
-  margin: auto;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 80px 25px;
 }
 
+/* Shared section heading style (h2 of every section) */
+section h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Small centered intro text under some section titles */
+.section-intro {
+    text-align: center;
+    color: var(--color-text-muted);
+    margin-bottom: 2.5rem;
+}
+
+
+/* Visible focus ring for ALL keyboard-navigable elements —
+   never remove outlines without replacing them. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* ---------- 4. Header & navigation ---------- */
+header {
+    position: sticky;                  /* sticks to the top while scrolling */
+    top: 0;
+    z-index: 100;                      /* stays above all content */
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);       /* frosted-glass effect */
+    border-bottom: 1px solid var(--color-border);
+}
+
+nav {
+    max-width: 1000px;
+    margin: 0 auto;
+    height: var(--nav-height);
+    padding: 0 1.5rem;
+    display: flex;                     /* logo left, links right */
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 1.5rem;                /* Initially Text, Replaced with image*/
+    color: var(--color-primary);
+}
+
+#nav-menu {
+    list-style: none;                  /* needed to remove default bullets */
+    display: flex;
+    gap: 1.75rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--color-text);
+    font-weight: 500;
+    padding: 0.25rem 0;
+    position: relative;
+    transition: color var(--transition);
+}
+
+/* Animated underline: a thin bar that grows from the left on hover.
+   'transform-origin: left' makes it expand left-to-right. */
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 2px;
+    background: var(--color-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition);
+}
+.nav-link:hover,
+.nav-link.active {
+    color: var(--color-primary);
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+    transform: scaleX(1);
+}
+
+/* Hamburger button: hidden on desktop, revealed in the media query.
+   Plain <button> reset — we draw the icon with .hamburger spans. */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+/* The hamburger icon: one span styled as a bar, plus ::before/::after
+   to create three stacked bars. JS adds .open to animate into an X. */
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+    display: block;
+    width: 24px;
+    height: 3px;
+    background: var(--color-text);
+    border-radius: 2px;
+    transition: var(--transition);
+}
+.hamburger {
+    position: relative;
+}
+.hamburger::before,
+.hamburger::after {
+    content: "";
+    position: absolute;
+    left: 0;
+}
+.hamburger::before { top: -8px; }
+.hamburger::after  { top: 8px; }
+
+/* When JS toggles .open on the button, morph the bars into an X */
+.nav-toggle.open .hamburger { background: transparent; }
+.nav-toggle.open .hamburger::before { top: 0; transform: rotate(45deg); }
+.nav-toggle.open .hamburger::after  { top: 0; transform: rotate(-45deg); }
+
+/* ---------- 5. Hero ---------- */
+.hero {
+    /* Full-viewport intro block, centered content */
+    background-image: url('assets/abs-background.webp');
+    background-size: cover;
+    min-height: 800px;               /* min height to cover above-fold */
+    max-width: none;                  /* override section's max-width */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+ 
+}
+
+.hero h1 {
+    font-size: 80px;   
+}
+
+/* The highlighted name */
+.hero h1 span {
+    color: var(--color-primary);
+}
+
+.hero p {
+    margin-top: 1rem;
+    font-size: clamp(1rem, 2.5vw, 1.35rem);
+    color: var(--color-text-muted);
+}
+
+.hero-buttons {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* ---------- 6. Sections ---------- */
+/* Alternate background for section #about (1st) plain, #projects gray-ish, */
+#projects, #contact {
+    background: var(--color-surface);
+    max-width: none;                   /* stretch the band full-width */
+}
+/* Re-center the content inside the full-width band */
+#projects > *, #contact > * {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- About --- */
+.about-content {
+    display: grid;
+    grid-template-columns: 250px 1fr;  /* image column + flexible text */
+    gap: 3rem;
+    align-items: start;
+    margin-top: 3rem;
+}
+
+.profile-img {
+    width: 100%;
+
+}
+
+.about-text h3 {
+    margin: 1.5rem 0 0.75rem;
+}
+
+/* Future roles rendered as pill-shaped tags */
+.future-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+.future-list li {
+    background: var(--color-primary);
+    color: #fff;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;              /* fully rounded = pill */
+    font-size: 0.9rem;
+}
+
+/* --- Projects --- */
 .project-card {
-  background: #eee;
-  padding: 20px;
-  margin: 10px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.profile-img {
+  flex-shrink: 0;
+  max-width: 200px; 
+  height: auto;
   border-radius: 8px;
 }
 
-form {
+
+
+.project-card {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    display: flex;
+
+}
+
+.project-card h3 {
+    margin-bottom: 50px;
+}
+
+.project-content {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
+}
+.project-card p {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    flex-grow: 1;                      /* pushes tags/link to the bottom */
 }
 
-input, textarea, button {
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+/* Small gray tag chips inside cards */
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 1rem 0;
+}
+.project-tags span {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
 }
 
-button {
-  background: #007BFF;
-  color: white;
-  border: none;
-  cursor: pointer;
+.project-link {
+    color: var(--color-primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+.project-link:hover {
+    text-decoration: underline;
 }
 
-button:hover {
-  background: #0056b3;
+/* --- Places --- */
+.places-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
 }
 
+.place-card {
+    border-radius: var(--radius);
+    overflow: hidden;                  /* clips the image to the card's corners */
+    box-shadow: var(--shadow);
+    position: relative;
+}
+
+.place-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;                 /* fills the box, crops overflow */
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.place-card figcaption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.75rem 1rem;
+    color: #fff;
+    font-weight: 500;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.65)); /* readable caption over image */
+}
+
+/* ---------- 7. Buttons ---------- */
+.btn {
+    display: inline-block;
+    padding: 0.8rem 1.8rem;
+    border-radius: var(--radius);
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid var(--color-primary);
+    transition: var(--transition);
+}
+
+/* Primary: filled */
+.btn-primary {
+    background: var(--color-primary);
+    color: #fff;
+}
+.btn-primary:hover {
+    background: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+    transform: translateY(-2px);
+}
+
+/* Secondary: outlined, fills on hover */
+.btn-secondary {
+    background: transparent;
+    color: var(--color-primary);
+}
+.btn-secondary:hover {
+    background: var(--color-primary);
+    color: #fff;
+}
+
+/* ---------- 8. Contact form ---------- */
+form {
+    max-width: 600px;
+    margin: 3rem auto 0;
+}
+
+.form-group {
+    margin-bottom: 1.4rem;
+}
+
+.form-group label {
+    display: block;                    /* label sits above the input */
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    font: inherit;                     /* inputs don't inherit fonts by default */
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+/* Highlight the active field */
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(79, 109, 245, 0.15);
+    outline: none;                     /* custom focus style replaces default */
+}
+
+/* JS adds .invalid to fields that fail validation */
+.form-group input.invalid,
+.form-group textarea.invalid {
+    border-color: var(--color-error);
+}
+
+/* Per-field error text (populated by script.js) */
+.error-message {
+    display: block;
+    color: var(--color-error);
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+    min-height: 1.1em;                 /* reserves space so layout doesn't jump */
+}
+
+/* Overall success/failure line below the form */
+#form-status {
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: 600;
+    min-height: 1.5em;
+}
+#form-status.success { color: var(--color-success); }
+#form-status.error   { color: var(--color-error); }
+
+/* ---------- 9. Footer ---------- */
 footer {
-  text-align: center;
-  padding: 20px;
-  background: #222;
-  color: white;
-  margin-top: 30px;
+    background: var(--color-text);     /* dark band to close the page */
+    color: #fff;
+    text-align: center;
+    padding: 2.5rem 1.5rem;
 }
 
-/* Dark Mode */
-.dark {
-  background: #121212;
-  color: #f9f9f9;
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1.25rem;
 }
 
-.dark header {
-  background: #333;
+.social-links a {
+    color: #fff;
+    text-decoration: none;
+    opacity: 0.85;
+    transition: var(--transition);
+}
+.social-links a:hover {
+    opacity: 1;
+    color: var(--color-primary);
 }
 
-.dark .project-card {
-  background: #1e1e1e;
-}
+
+
